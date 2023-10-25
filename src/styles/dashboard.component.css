@@ -1,0 +1,53 @@
+.nav-logohome {
+    display: flex;
+    width: 80px;
+    height: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  
+  .header-text {
+    margin-left: 3rem;
+  }
+  
+  .app-bar-background{
+    background: white;
+  }
+  
+  .logo-size{
+    height:4.313rem;
+    width:6rem;
+  }
+  
+  .sub-section-report {
+    font-size: 15px;
+    font-weight: 550;
+    color: grey;
+    padding-left: 0.938rem;
+    position: relative;
+    top: 3.75rem;
+  }
+  
+  .sub-section-monitoring {
+    font-size: 15px;
+    font-weight: 550;
+    color: grey;
+    padding-left: 1.563rem;
+    position: relative;
+    top: 3.75rem;
+  padding-bottom: 5px;
+  }
+  
+  .menu-items {
+    padding-left: 0.188rem !important;
+    top: 3.75rem ;
+    &:hover {
+      background-color:  #ffa500d4;
+    }
+  }
+
+  
+  .headerbutton {
+    align-items: justify-end;
+  }
+  
