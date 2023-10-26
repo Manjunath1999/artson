@@ -74,7 +74,7 @@
   }
 
 .submit-button{
-  width: 100%;
+  width: 13rem;
   height: 54px;
   font-size: 16px !important;
   font-weight: 500 !important;
@@ -84,6 +84,11 @@
   &:hover {
     background-color: #ffa500d4 !important;
     box-shadow: none;
+  }
+  &:disabled {
+    background-color: #4B4B4B!important;
+    box-shadow: none;
+    opacity: 0.5;
   }
 }
 

@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import artsonLogo from "../../assets/images/artson-image.png";
 import DropdownUser from "../../components/DropDownUser"
 import MenuItem from "@mui/material/MenuItem";
-import Home from "../../components/Home"
+import Home from "../../components/Home";
 
 
 function DashBoard() {
@@ -102,7 +102,8 @@ function DashBoard() {
     <AppBar className="app-bar-background" sx={{
     zIndex: (theme) => theme.zIndex.drawer + 1,
     bgcolor: '#ffa500d4', 
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' // Add a shadow
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+    height: "6rem"
   }}>
       <Toolbar>
         <img alt="Kotak Logo" className="logo-size" src={artsonLogo.src} />

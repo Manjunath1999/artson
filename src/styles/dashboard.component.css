@@ -7,6 +7,7 @@
   }
   
   .header-text {
+    margin-top: 1rem;
     margin-left: 3rem;
   }
   
@@ -15,7 +16,8 @@
   }
   
   .logo-size{
-    height:4.313rem;
+    margin-top: 0.5rem;
+    height:5rem;
     width:6rem;
   }
   
@@ -40,7 +42,7 @@
   
   .menu-items {
     padding-left: 0.188rem !important;
-    top: 3.75rem ;
+    top: 5.3rem ;
     &:hover {
       background-color:  #ffa500d4;
     }

@@ -36,7 +36,7 @@ const DropdownUser = () => {
       <Button
         color="inherit"
         className="headerbutton"
-        sx={{ position: "absolute", top: "10px", right: "10px", color: "white",fontSize: "1.2rem" }}
+        sx={{ position: "absolute", top: "10px", right: "10px", color: "white",fontSize: "1.2rem", marginTop: "1rem" }}
         onClick={handleClick}
       >
         <AccountCircleIcon sx={{marginRight: "5px"}}/>
