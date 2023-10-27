@@ -15,7 +15,15 @@
   }
   .form-container {
     width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 11px;
+    padding-top: 2.3rem;
     
+  }
+  .header {
+    padding: 10px;   
+    background: #ffb42b;
+    margin-top: 0;
   }
   .paper {
     padding-left: 50px;
@@ -103,4 +111,7 @@
 
 .paper-details {
   width:50%;
+}
+.signatureHeight{
+padding: 5rem 1rem 2rem 2rem;
 }
