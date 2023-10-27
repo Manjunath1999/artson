@@ -3,6 +3,7 @@ import InductionTraining from "../InductionTraining";
 import Head from "next/head";
 import CommonForm from "../common/CommonForm";
 import ToolBoxTalk from "../ToolBoxTalk";
+import NearMissReport from "../NearMissReport";
 
 const Home = ({ selectedParent, selectedChildren }) => {
   return selectedParent ? (
@@ -13,6 +14,11 @@ const Home = ({ selectedParent, selectedChildren }) => {
       />
     ) : selectedChildren === "Tool Box Talk" ? (
       <ToolBoxTalk
+        selectedParent={selectedParent}
+        selectedChildren={selectedChildren}
+      />
+    ) : selectedChildren === "Near Miss Report" ? (
+      <NearMissReport
         selectedParent={selectedParent}
         selectedChildren={selectedChildren}
       />

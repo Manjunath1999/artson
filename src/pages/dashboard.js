@@ -15,7 +15,7 @@ import Home from "../../components/Home";
 
 function DashBoard() {
   const [TabsArray, setTabsArray] = useState(["DOCS", "REPORTS"]);
-  const [docs, setDocs] = useState(["Induction Training", "Tool Box Talk", "MOM-HSE Commitee Meeting", "Accident Investigation"]);
+  const [docs, setDocs] = useState(["Induction Training", "Tool Box Talk", "MOM-HSE Commitee Meeting", "Accident Investigation","Near Miss Report"]);
   const [reports, setReports] = useState(["Near Miss Report", "Audit report", "Monthly HSE Report", "Mock Drill Report"]);
   const [selectedTab, setSelectedTab] = useState("");
   const [state, setState] = useState({
