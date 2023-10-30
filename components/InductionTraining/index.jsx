@@ -67,9 +67,6 @@ function ViewReport() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "flex-start",
-        margin: "0 auto",
-        marginTop: "7rem",
       }}
     >
       <Typography
@@ -715,6 +712,13 @@ function ViewReport() {
             disabled={isEditing}
           >
             Print
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleUpdate}
+            className="submit-button"
+          >
+            Search
           </Button>
         </div>
       </div>

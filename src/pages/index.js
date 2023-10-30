@@ -50,22 +50,23 @@ const Signin = () => {
     }
   
     // Check if the entered value is a complete email address
-    if (value.length == 1 && !suffixAdded) {
-      const emailWithSuffix = value + "@artson.com";
-      setSuffixAdded(true);
-      formikCustomerDetailsForm.setFieldValue("email", emailWithSuffix);
-  
-      // Check if inputRef.current is defined before calling setSelectionRange
-      if (inputRef.current) {
-        const cursorPosition = value.length; // Position before the suffix
-        setTimeout(() => {
-          inputRef.current.setSelectionRange(1, cursorPosition);
-          inputRef.current.focus();
-        }, 0);
+      if (value.length == 1 && !suffixAdded) {
+        const emailWithSuffix = value + "@artson.com";
+        setSuffixAdded(true);
+        formikCustomerDetailsForm.setFieldValue("email", emailWithSuffix);
+    
+        // Check if inputRef.current is defined before calling setSelectionRange
+        if (inputRef.current) {
+          const cursorPosition = value.length; // Position before the suffix
+          setTimeout(() => {
+            inputRef.current.setSelectionRange(1, cursorPosition);
+            inputRef.current.focus();
+          }, 0);
+        }
+      } else {
+          formikCustomerDetailsForm.setFieldValue("email", value); 
       }
-    } else {
-      formikCustomerDetailsForm.setFieldValue("email", value);
-    }
+    
   }
 
   function PasswdChange(event) {

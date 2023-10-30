@@ -74,7 +74,7 @@ function ViewReport() {
       <Typography
         variant="h5"
         align="center"
-        style={{ margin: "0 auto", marginBottom: "2rem", marginTop: "1rem", fontSize: "1.8rem" }}
+        style={{ margin: "0 auto", marginBottom: "2rem", fontSize: "1.8rem" }}
       >
         TOOLBOX TALK
       </Typography>
@@ -796,6 +796,13 @@ function ViewReport() {
             disabled={isEditing}
           >
             Print
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleUpdate}
+            className="submit-button"
+          >
+            Search
           </Button>
         </div>
       </div>
