@@ -148,7 +148,8 @@ padding: 5rem 1rem 2rem 2rem;
     width:100%;
   }
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.mui-style-11xur9t-MuiPaper-root-MuiTableContainer-root{
-    width:80%;
+    /* width:80%; */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content:center;
@@ -193,7 +194,8 @@ padding: 5rem 1rem 2rem 2rem;
     width:100%;
   }
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.mui-style-11xur9t-MuiPaper-root-MuiTableContainer-root{
-    width:70%;
+    /* width:70%; */
+     width: 100%;
     display: flex;
     align-items: center;
     justify-content:center;
@@ -204,9 +206,11 @@ padding: 5rem 1rem 2rem 2rem;
 
 
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 595px) {
 
-  table.MuiTable-root.mui-style-rqglhn-MuiTable-root{
+  table.MuiTable-root.mui-style-rqglhn-MuiTable-root,
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.mui-style-11xur9t-MuiPaper-root-MuiTableContainer-root
+  {
     width:100%;
   }
    .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.mui-style-11xur9t-MuiPaper-root-MuiTableContainer-root{
@@ -217,5 +221,52 @@ padding: 5rem 1rem 2rem 2rem;
     margin: 3rem auto 0px;
 
   }
+  .buttonContainer{
+    width: 400px;
+  }
+  svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.mui-style-gsx9sh-MuiSvgIcon-root{
+    display: none;
+  }
+ .header-text button,span.MuiTouchRipple-root.mui-style-8je8zh-MuiTouchRipple-root
+ {
+    font-size: 13px;
+    padding-right: 0;
+    margin-right: 0;
+  }
+  button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.headerbutton.mui-style-154t5dp-MuiButtonBase-root-MuiButton-root{
+    font-size: 13px;
+    padding-top: 16px;
+  }
+}
 
+
+
+@media screen and (max-width: 440px) {
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.mui-style-11xur9t-MuiPaper-root-MuiTableContainer-root
+  {
+    width:100%;
+  }
+  .buttonContainer{
+    width: 100%;
+  }
+  svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.mui-style-gsx9sh-MuiSvgIcon-root{
+    display: none;
+  }
+  button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.headerbutton.mui-style-154t5dp-MuiButtonBase-root-MuiButton-root{
+    font-size: 10px;
+  }
+  .header-text button,span.MuiTouchRipple-root.mui-style-8je8zh-MuiTouchRipple-root
+  {
+     font-size: 10px;
+  }
+  .logo-size {
+    height: 3rem;
+    width: 4rem;
+}
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.mui-style-hyum1k-MuiToolbar-root{
+  padding-top: 1rem;
+}
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.headerbutton.mui-style-154t5dp-MuiButtonBase-root-MuiButton-root{
+  padding-top: 25px
+}
 }
