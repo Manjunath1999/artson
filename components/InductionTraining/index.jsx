@@ -206,6 +206,7 @@ function ViewReport() {
                       label="Induction Record No:"
                       value={formData.inductionRecord}
                       onChange={(e) => {
+                        const inputValue = e.target.value;
                         if (/^[0-9]*$/.test(inputValue)) {
                           setFormData({
                             ...formData,
