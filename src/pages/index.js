@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState, useContext,useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useFormik } from "formik";
 import Alert from "@mui/material/Alert";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -21,7 +21,7 @@ const Signin = () => {
     },
     onSubmit: async (values) => {
       try {
-        router.push("/dashboard")
+        router.push("/dashboard");
       } catch (error) {
         setLoading(false);
         setError("Something went wrong. please try again later.");
@@ -45,53 +45,79 @@ const Signin = () => {
   function EmailChange(event) {
     const { value, selectionStart, selectionEnd } = event.target;
     const { email, setFieldValue } = formikCustomerDetailsForm;
-  
+
     if (value.length === 0) {
       setSuffixAdded(false);
     }
-  
+
     if (value.length === 1 && !suffixAdded) {
       const alphanumericRegex = /^[a-zA-Z0-9@.]*$/;
-      if(!alphanumericRegex.test(value))
-      {
+      if (!alphanumericRegex.test(value)) {
         setSuffixAdded(true);
         setFieldValue("email", "@artson.com");
         const cursorPosition = value.length;
         setTimeout(() => {
-          inputRef.current.setSelectionRange(cursorPosition, cursorPosition- 1);
+          inputRef.current.setSelectionRange(
+            cursorPosition,
+            cursorPosition - 1
+          );
           inputRef.current.focus();
         }, 0);
-      }
-      else {
-        const emailWithSuffix = value + "@artson.com";
-        setSuffixAdded(true);
-        setFieldValue("email", emailWithSuffix);
-    
-        // Check if inputRef.current is defined before calling setSelectionRange
-        if (inputRef.current) {
-          const cursorPosition = value.length; // Position before the suffix
-    
+      } else {
+        if (
+          (value.match(/@/g) || []).length <= 0
+        ) {
+          const emailWithSuffix = value + "@artson.com";
+          setSuffixAdded(true);
+          setFieldValue("email", emailWithSuffix);
+
+          // Check if inputRef.current is defined before calling setSelectionRange
+          if (inputRef.current) {
+            const cursorPosition = value.length; // Position before the suffix
+
+            setTimeout(() => {
+              inputRef.current.setSelectionRange(
+                cursorPosition,
+                cursorPosition
+              );
+              inputRef.current.focus();
+            }, 0);
+          }
+        } else {
           setTimeout(() => {
-            inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
+            inputRef.current.setSelectionRange(
+              selectionStart,
+              selectionEnd - 1
+            );
             inputRef.current.focus();
           }, 0);
         }
       }
-      
     } else {
       const alphanumericRegex = /^[a-zA-Z0-9@.]*$/;
-  
+
       if (alphanumericRegex.test(value)) {
-        setFieldValue("email", value);
-      } else {
+        if (
+          (value.match(/@/g) || []).length <= 1
+        ) {
+          setFieldValue("email", value);
+        } else {
           setTimeout(() => {
-            inputRef.current.setSelectionRange(selectionStart, selectionEnd-1);
+            inputRef.current.setSelectionRange(
+              selectionStart,
+              selectionEnd - 1
+            );
             inputRef.current.focus();
           }, 0);
+        }
+      } else {
+        setTimeout(() => {
+          inputRef.current.setSelectionRange(selectionStart, selectionEnd - 1);
+          inputRef.current.focus();
+        }, 0);
       }
     }
   }
-  
 
   function PasswdChange(event) {
     formikCustomerDetailsForm.setFieldValue("password", event.target.value);
@@ -100,12 +126,16 @@ const Signin = () => {
   return (
     <div className="integratedportal-container">
       <div className="header">
-      <img alt="Kotak Logo" className="logo-size" src={artsonLogo.src} />
+        <img alt="Kotak Logo" className="logo-size" src={artsonLogo.src} />
       </div>
       <div className="container">
         <div className="form-container">
           {error ? (
-            <Alert severity="error" sx={{ mb: 4 }} style={{ width: "25.5rem", marginLeft: "3rem" }}>
+            <Alert
+              severity="error"
+              sx={{ mb: 4 }}
+              style={{ width: "25.5rem", marginLeft: "3rem" }}
+            >
               {error}
             </Alert>
           ) : (
@@ -124,8 +154,14 @@ const Signin = () => {
                       fullWidth
                       onChange={EmailChange}
                       value={formikCustomerDetailsForm.values.email}
-                      helperText={formikCustomerDetailsForm.touched.email && formikCustomerDetailsForm.errors.email}
-                      error={formikCustomerDetailsForm.touched.email && !!formikCustomerDetailsForm.errors.email}
+                      helperText={
+                        formikCustomerDetailsForm.touched.email &&
+                        formikCustomerDetailsForm.errors.email
+                      }
+                      error={
+                        formikCustomerDetailsForm.touched.email &&
+                        !!formikCustomerDetailsForm.errors.email
+                      }
                       onBlur={(e) => formikCustomerDetailsForm.handleBlur(e)}
                       inputRef={inputRef}
                       InputProps={{
@@ -160,9 +196,13 @@ const Signin = () => {
                       value={formikCustomerDetailsForm.values.password}
                       onChange={PasswdChange}
                       helperText={
-                        formikCustomerDetailsForm.touched.password && formikCustomerDetailsForm.errors.password
+                        formikCustomerDetailsForm.touched.password &&
+                        formikCustomerDetailsForm.errors.password
                       }
-                      error={formikCustomerDetailsForm.touched.password && !!formikCustomerDetailsForm.errors.password}
+                      error={
+                        formikCustomerDetailsForm.touched.password &&
+                        !!formikCustomerDetailsForm.errors.password
+                      }
                       onBlur={(e) => formikCustomerDetailsForm.handleBlur(e)}
                     />
                   </div>
