@@ -114,7 +114,6 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
@@ -137,7 +136,6 @@ function ViewReport() {
                         Location: {formData.location}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
                 <TableCell
                   colSpan={2}

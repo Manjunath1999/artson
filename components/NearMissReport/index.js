@@ -19,7 +19,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
 
-function ViewReport() {
+function NearMissReport() {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     project: "",
@@ -132,7 +132,6 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
@@ -155,7 +154,6 @@ function ViewReport() {
                         Project: {formData.project}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -167,7 +165,6 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
@@ -190,7 +187,6 @@ function ViewReport() {
                         Site/Location : {formData.sitelocation}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
               </TableRow>
 
@@ -203,7 +199,6 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
@@ -226,7 +221,6 @@ function ViewReport() {
                         Sub-Contractor name: {formData.subContractorName}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
               </TableRow>
 
@@ -239,7 +233,6 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                   {isEditing ? (
                     <DesktopDatePicker
                       type="text"
@@ -277,7 +270,6 @@ function ViewReport() {
                       Incident Date: {formData.date}
                     </Typography>
                   )}
-                  </Typography>
                 </TableCell>
                 <TableCell
                   colSpan={4}
@@ -884,4 +876,4 @@ function ViewReport() {
   );
 }
 
-export default ViewReport;
+export default NearMissReport;

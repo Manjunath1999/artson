@@ -41,8 +41,8 @@
   }
   
   .menu-items {
-    padding-left: 0.188rem !important;
-    top: 5.3rem ;
+    padding-left: 1.3rem !important;
+    top: 6.3rem ;
     &:hover {
       background-color:  #ffa500d4;
     }

@@ -116,14 +116,13 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
                         id="project"
                         name="project"
                         label="Project"
-                        value={formData.project}
+                        value={formData.project || "" }
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -139,7 +138,6 @@ function ViewReport() {
                         Project: {formData.project}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -151,14 +149,13 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                  <Typography variant="body1">
                     {isEditing ? (
                       <CustomTextField
                         type="text"
                         id="location"
                         name="location"
                         label="Site/Location"
-                        value={formData.location}
+                        value={formData.location || "" }
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           if (/^[A-Za-z]*$/.test(inputValue)) {
@@ -174,7 +171,6 @@ function ViewReport() {
                         Location: {formData.location}
                       </Typography>
                     )}
-                  </Typography>
                 </TableCell>
                 <TableCell
                   colSpan={2}
@@ -191,7 +187,7 @@ function ViewReport() {
                       name="date"
                       label="Date"
                       inputFormat="MM/DD/YYYY"
-                      value={dob}
+                      value={dob || ""}
                       onChange={(date) => {
                         let dateObj = new Date(date);
                         let dateCheck =
@@ -262,7 +258,7 @@ function ViewReport() {
                       id="companyname"
                       name="companyname"
                       label="Company Name:"
-                      value={formData.companyname}
+                      value={formData.companyname || ""}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -293,7 +289,7 @@ function ViewReport() {
                       id="workpermitno"
                       name="workpermitno"
                       label="Work Permit No"
-                      value={formData.workpermitno}
+                      value={formData.workpermitno || ""}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[0-9]*$/.test(inputValue)) {
@@ -326,7 +322,7 @@ function ViewReport() {
                       id="todayactivities"
                       name="todayactivities"
                       label="Today’s Activities:"
-                      value={formData.todayactivities}
+                      value={formData.todayactivities || "" }
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -357,7 +353,7 @@ function ViewReport() {
                       id="totalmanpower"
                       name="totalmanpower"
                       label="Total Man Power"
-                      value={formData.totalmanpower}
+                      value={formData.totalmanpower || "" }
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[A-Za-z0-9\s]*$/.test(inputValue)) {
@@ -390,7 +386,7 @@ function ViewReport() {
                       id="hazardsassociated"
                       name="hazardsassociated"
                       label="Hazards Associated with Activities"
-                      value={formData.hazardsassociated}
+                      value={formData.hazardsassociated || "" }
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -422,7 +418,7 @@ function ViewReport() {
                       id="controlmeasures"
                       name="controlmeasures"
                       label="Control Measures Explained"
-                      value={formData.controlmeasures}
+                      value={formData.controlmeasures || ""}
                       onChange={(e) => {
                         const inputValue = e.target.value;
                         if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -671,7 +667,7 @@ function ViewReport() {
                         id="signatureofengineer"
                         name="signatureofengineer"
                         label="SignatureofEngineer"
-                        value={formData.signatureofengineer}
+                        value={formData.signatureofengineer || "" }
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           if (/^[A-Za-z\s]*$/.test(inputValue)) {
@@ -694,7 +690,7 @@ function ViewReport() {
                         id="signatureofhse"
                         name="signatureofhse"
                         label="Signature"
-                        value={formData.signatureofhse}
+                        value={formData.signatureofhse || "" }
                         onChange={(e) => {
                           const inputValue = e.target.value;
                           if (/^[A-Za-z\s]*$/.test(inputValue)) {

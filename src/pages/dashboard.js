@@ -66,8 +66,7 @@ function DashBoard() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        <ListItem sx={{ display: "block" }}>
+      <List sx={{ display: "block" }}>
           {anchor == "DOCS" ? (
             <>
               {docs
@@ -109,7 +108,6 @@ function DashBoard() {
                 : ""}
             </>
           )}
-        </ListItem>
       </List>
     </Box>
   );
@@ -144,7 +142,7 @@ function DashBoard() {
                 </Button>
 
                 <SwipeableDrawer
-                  anchor={parent}
+                  anchor="left"
                   open={state[parent]}
                   onClose={toggleDrawer(parent, false)}
                   onOpen={toggleDrawer(parent, true)}
