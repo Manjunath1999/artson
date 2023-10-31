@@ -166,8 +166,10 @@ padding: 5rem 1rem 2rem 2rem;
     display: flex;
     align-items: center;
     justify-content:center;
-    margin: 3rem auto 0px;
-   
+    margin: 3rem auto 0px;   
+  }
+  & .container {
+    height: unset;
   }
 }
 
@@ -202,8 +204,10 @@ padding: 5rem 1rem 2rem 2rem;
     margin: 3rem auto 0px;
 
   }
+  & .container {
+    height: unset !important;
+  }
 }
-
 
 
 @media screen and (max-width: 595px) {
@@ -237,6 +241,12 @@ padding: 5rem 1rem 2rem 2rem;
     font-size: 13px;
     padding-top: 16px;
   }
+  & .container {
+    height: unset !important;
+  }
+  .form-container {
+    width: auto !important;
+  }
 }
 
 
@@ -268,5 +278,23 @@ padding: 5rem 1rem 2rem 2rem;
 }
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.headerbutton.mui-style-154t5dp-MuiButtonBase-root-MuiButton-root{
   padding-top: 25px
+}
+& .container {
+  height: unset;
+}
+
+.form-container {
+  width: auto !important;
+}
+}
+
+
+@media screen and (max-width: 375px) {
+
+.header-text{
+  margin-left: 17px !important;
+}
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.MuiButton-root.MuiButton-text.MuiButton-textInherit.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorInherit.headerbutton.mui-style-154t5dp-MuiButtonBase-root-MuiButton-root{
+  padding-top: 32px;
 }
 }
