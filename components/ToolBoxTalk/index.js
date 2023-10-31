@@ -757,7 +757,7 @@ function ViewReport() {
         </TableContainer>
       </LocalizationProvider>
 
-      <div style={{ margin: "0 auto" }}>
+      <div style={{ margin: "0 auto" }} className="buttonContainer">
         <div
           style={{
             marginTop: "3rem",
