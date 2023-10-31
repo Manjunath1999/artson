@@ -43,31 +43,55 @@ const Signin = () => {
   });
 
   function EmailChange(event) {
-    const { value } = event.target;
-    if(value.length == 0)
-    {
+    const { value, selectionStart, selectionEnd } = event.target;
+    const { email, setFieldValue } = formikCustomerDetailsForm;
+  
+    if (value.length === 0) {
       setSuffixAdded(false);
     }
   
-    // Check if the entered value is a complete email address
-      if (value.length == 1 && !suffixAdded) {
+    if (value.length === 1 && !suffixAdded) {
+      const alphanumericRegex = /^[a-zA-Z0-9@.]*$/;
+      if(!alphanumericRegex.test(value))
+      {
+        setSuffixAdded(true);
+        setFieldValue("email", "@artson.com");
+        const cursorPosition = value.length;
+        setTimeout(() => {
+          inputRef.current.setSelectionRange(cursorPosition, cursorPosition- 1);
+          inputRef.current.focus();
+        }, 0);
+      }
+      else {
         const emailWithSuffix = value + "@artson.com";
         setSuffixAdded(true);
-        formikCustomerDetailsForm.setFieldValue("email", emailWithSuffix);
+        setFieldValue("email", emailWithSuffix);
     
         // Check if inputRef.current is defined before calling setSelectionRange
         if (inputRef.current) {
           const cursorPosition = value.length; // Position before the suffix
+    
           setTimeout(() => {
-            inputRef.current.setSelectionRange(1, cursorPosition);
+            inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
             inputRef.current.focus();
           }, 0);
         }
-      } else {
-          formikCustomerDetailsForm.setFieldValue("email", value); 
       }
-    
+      
+    } else {
+      const alphanumericRegex = /^[a-zA-Z0-9@.]*$/;
+  
+      if (alphanumericRegex.test(value)) {
+        setFieldValue("email", value);
+      } else {
+          setTimeout(() => {
+            inputRef.current.setSelectionRange(selectionStart, selectionEnd-1);
+            inputRef.current.focus();
+          }, 0);
+      }
+    }
   }
+  
 
   function PasswdChange(event) {
     formikCustomerDetailsForm.setFieldValue("password", event.target.value);
