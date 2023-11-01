@@ -114,28 +114,28 @@ function ViewReport() {
                     textAlign: "left",
                   }}
                 >
-                    {isEditing ? (
-                      <CustomTextField
-                        type="text"
-                        id="location"
-                        name="location"
-                        label="Location"
-                        value={formData.location}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (/^[A-Za-z\s]*$/.test(inputValue)) {
-                            setFormData({
-                              ...formData,
-                              location: inputValue,
-                            });
-                          }
-                        }}
-                      />
-                    ) : (
-                      <Typography variant="body1">
-                        Location: {formData.location}
-                      </Typography>
-                    )}
+                  {isEditing ? (
+                    <CustomTextField
+                      type="text"
+                      id="location"
+                      name="location"
+                      label="Location"
+                      value={formData.location}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(inputValue)) {
+                          setFormData({
+                            ...formData,
+                            location: inputValue,
+                          });
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Typography variant="body1">
+                      Location: {formData.location}
+                    </Typography>
+                  )}
                 </TableCell>
                 <TableCell
                   colSpan={2}
@@ -711,12 +711,25 @@ function ViewReport() {
           >
             Print
           </Button>
+
+        </div>
+      </div>
+      <div className="searchButtonContainer">
+        <div className="searchButton">
+          <span>
+            Search 
+            {/* <svg class="MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 12 12" width="12" height="12" data-testid="SearchIcon">
+              <path d="M4.95 0a4.99 4.99 0 0 1 4.102 7.78l3.722 3.723a.75.75 0 1 1-1.06 1.06l-3.723-3.722A4.99 4.99 0 1 1 4.95 0zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+            </svg> */}
+          </span>
           <Button
             variant="contained"
             onClick={handleUpdate}
             className="submit-button"
           >
-            Search
+            <svg class="MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 12 12" width="12" height="12" data-testid="SearchIcon">
+              <path d="M4.95 0a4.99 4.99 0 0 1 4.102 7.78l3.722 3.723a.75.75 0 1 1-1.06 1.06l-3.723-3.722A4.99 4.99 0 1 1 4.95 0zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+            </svg>
           </Button>
         </div>
       </div>

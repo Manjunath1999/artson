@@ -141,6 +141,45 @@ padding: 5rem 1rem 2rem 2rem;
     border-radius: 10px;
   }
 }
+th.MuiTableCell-root.MuiTableCell-head.MuiTableCell-sizeMedium.mui-style-1ygcj2i-MuiTableCell-root {
+  border: 1px solid;
+}
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.mui-style-sghohy-MuiButtonBase-root-MuiButton-root {
+  margin-top: 10px;
+}
+
+.searchButton span {
+  margin-right: 7rem;
+  padding-left: 10px;
+}
+.searchButton {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 8px;
+  height: 70px;
+  margin: 0;
+  width: 20rem;
+  height: 3.5rem;
+}
+
+.searchButton button{
+  width: 12rem;
+}
+svg.MuiSvgIcon-root{
+  margin-left: 13px;
+  color: #fff;
+}
+.searchButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.searchButtonContainer .submit-button {
+  height: 35px;
+  width: 8rem;
+  margin-right:8px;
+}
+/* Media Query */
+/* Media Query */
 
 @media screen and (max-width: 1200px) {
 
