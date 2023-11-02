@@ -382,3 +382,34 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.Mu
     opacity: 0.5;
   }
 }
+
+
+.align-files {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-attachements{
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+
+.file-name {
+  width: 8rem;
+  word-wrap: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .align-files {
+    display: flex;
+    flex-direction: column;
+  }
+  .add-attachements{
+    padding-bottom: 0.9rem;
+  }
+  .file-name {
+    width: 20rem;
+    word-wrap: break-word;
+  }
+}
