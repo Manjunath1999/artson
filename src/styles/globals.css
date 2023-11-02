@@ -155,18 +155,19 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-contained
 .searchButton {
   border: 1px solid rgb(0, 0, 0);
   border-radius: 8px;
-  height: 70px;
   margin: 0;
   width: 20rem;
-  height: 3.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
 }
 
 .searchButton button{
   width: 12rem;
 }
 svg.MuiSvgIcon-root{
-  margin-left: 13px;
-  color: #fff;
+    margin-left: 13px;
+    color: #fff;
+    margin-right: 13px;
 }
 .searchButtonContainer{
     display: flex;
@@ -174,10 +175,21 @@ svg.MuiSvgIcon-root{
     justify-content: center;
 }
 .searchButtonContainer .submit-button {
-  height: 35px;
-  width: 8rem;
+  height: 37px;
+  width: 6rem;
   margin-right:8px;
 }
+
+.searchButton .submit-button{
+  margin-left: 10px;
+  height: 2.5rem;
+  width: 6.5rem;
+}
+
+
+
+
+
 /* Media Query */
 /* Media Query */
 
