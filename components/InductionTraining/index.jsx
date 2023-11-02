@@ -722,7 +722,9 @@ function ViewReport() {
               <path d="M4.95 0a4.99 4.99 0 0 1 4.102 7.78l3.722 3.723a.75.75 0 1 1-1.06 1.06l-3.723-3.722A4.99 4.99 0 1 1 4.95 0zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
             </svg> */}
           </span>
-          <Button
+         
+        </div>
+         <Button
             variant="contained"
             onClick={handleUpdate}
             className="submit-button"
@@ -731,7 +733,6 @@ function ViewReport() {
               <path d="M4.95 0a4.99 4.99 0 0 1 4.102 7.78l3.722 3.723a.75.75 0 1 1-1.06 1.06l-3.723-3.722A4.99 4.99 0 1 1 4.95 0zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
             </svg>
           </Button>
-        </div>
       </div>
     </div>
   );
