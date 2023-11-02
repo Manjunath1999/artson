@@ -18,6 +18,13 @@ import { TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
+import { Box } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/Info";
+import FilePopup from "../FilePopup";
 
 function NearMissReport() {
   const [isEditing, setIsEditing] = useState(false);
@@ -54,6 +61,12 @@ function NearMissReport() {
   const [tableData, setTableData] = useState([initialRow]);
   const [time, setTime] = useState(null);
   const [dob, setDob] = useState(null);
+  const [files, setFiles] = useState([null, null, null, null, null]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filePopupFlag, setFilePopupFlag] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
 
   const addRow = () => {
     setTableData([...tableData, { ...initialRow }]);
@@ -71,6 +84,38 @@ function NearMissReport() {
 
   const handleUpdate = () => {
     setIsEditing(true);
+  };
+
+  const handleDeleteFile = (index) => {
+    const updatedFiles = [...files];
+    updatedFiles.splice(index, 1);
+    setFiles(updatedFiles);
+  };
+
+  const handleInfo = (index) => {
+    setOpen(true);
+    setFilePopupFlag(true);
+    setUrl(files[index].url);
+  };
+
+  const handleFileChange = (e, columnIndex) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size <= 1024 * 1024) {
+        const newFiles = [...files];
+        const imageUrl = URL.createObjectURL(file);
+        newFiles[columnIndex] = {
+          file,
+          name: file.name,
+          url: imageUrl,
+        };
+        setFiles(newFiles);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("File size should be less than 1 MB");
+        e.target.value = null;
+      }
+    }
   };
 
   return (
@@ -132,28 +177,28 @@ function NearMissReport() {
                     textAlign: "left",
                   }}
                 >
-                    {isEditing ? (
-                      <CustomTextField
-                        type="text"
-                        id="project"
-                        name="project"
-                        label="Project"
-                        value={formData.project}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (/^[A-Za-z\s]*$/.test(inputValue)) {
-                            setFormData({
-                              ...formData,
-                              project: e.target.value,
-                            });
-                          }
-                        }}
-                      />
-                    ) : (
-                      <Typography variant="body1">
-                        Project: {formData.project}
-                      </Typography>
-                    )}
+                  {isEditing ? (
+                    <CustomTextField
+                      type="text"
+                      id="project"
+                      name="project"
+                      label="Project"
+                      value={formData.project}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(inputValue)) {
+                          setFormData({
+                            ...formData,
+                            project: e.target.value,
+                          });
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Typography variant="body1">
+                      Project: {formData.project}
+                    </Typography>
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -165,28 +210,28 @@ function NearMissReport() {
                     textAlign: "left",
                   }}
                 >
-                    {isEditing ? (
-                      <CustomTextField
-                        type="text"
-                        id="sitelocation"
-                        name="sitelocation"
-                        label="Site/Location"
-                        value={formData.sitelocation}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (/^[A-Za-z\s]*$/.test(inputValue)) {
-                            setFormData({
-                              ...formData,
-                              sitelocation: e.target.value,
-                            });
-                          }
-                        }}
-                      />
-                    ) : (
-                      <Typography variant="body1">
-                        Site/Location : {formData.sitelocation}
-                      </Typography>
-                    )}
+                  {isEditing ? (
+                    <CustomTextField
+                      type="text"
+                      id="sitelocation"
+                      name="sitelocation"
+                      label="Site/Location"
+                      value={formData.sitelocation}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(inputValue)) {
+                          setFormData({
+                            ...formData,
+                            sitelocation: e.target.value,
+                          });
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Typography variant="body1">
+                      Site/Location : {formData.sitelocation}
+                    </Typography>
+                  )}
                 </TableCell>
               </TableRow>
 
@@ -199,28 +244,28 @@ function NearMissReport() {
                     textAlign: "left",
                   }}
                 >
-                    {isEditing ? (
-                      <CustomTextField
-                        type="text"
-                        id="subContractorName"
-                        name="subContractorName"
-                        label="Sub-Contractor name"
-                        value={formData.subContractorName}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (/^[A-Za-z\s]*$/.test(inputValue)) {
-                            setFormData({
-                              ...formData,
-                              subContractorName: e.target.value,
-                            });
-                          }
-                        }}
-                      />
-                    ) : (
-                      <Typography variant="body1">
-                        Sub-Contractor name: {formData.subContractorName}
-                      </Typography>
-                    )}
+                  {isEditing ? (
+                    <CustomTextField
+                      type="text"
+                      id="subContractorName"
+                      name="subContractorName"
+                      label="Sub-Contractor name"
+                      value={formData.subContractorName}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(inputValue)) {
+                          setFormData({
+                            ...formData,
+                            subContractorName: e.target.value,
+                          });
+                        }
+                      }}
+                    />
+                  ) : (
+                    <Typography variant="body1">
+                      Sub-Contractor name: {formData.subContractorName}
+                    </Typography>
+                  )}
                 </TableCell>
               </TableRow>
 
@@ -365,7 +410,6 @@ function NearMissReport() {
                   )}
                 </TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell
                   colSpan={12}
@@ -823,6 +867,123 @@ function NearMissReport() {
           </Table>
         </TableContainer>
       </LocalizationProvider>
+      <div className="documentContainer">
+        {isEditing ? (
+          <>
+            <Typography variant="body1" style={{ marginBottom: "0.9rem" }}>
+              Add Attachments
+            </Typography>
+            <Table>
+              <TableBody>
+                {errorMessage && (
+                  <Typography variant="body2" color="error">
+                    {errorMessage}
+                  </Typography>
+                )}
+                <TableRow>
+                  {[0, 1, 2, 3, 4].map((index) => (
+                    <TableCell
+                      key={index}
+                      sx={{ padding: "0px", border: "none" }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          width: "12rem",
+                        }}
+                      >
+                        <input
+                          type="file"
+                          accept=".jpg, .png"
+                          style={{
+                            borderRadius: "2px",
+                            width: "200px",
+                            display: "none",
+                          }}
+                          onChange={(e) => handleFileChange(e, index)}
+                          id={`file-input-${index}`}
+                        />
+                        <label htmlFor={`file-input-${index}`}>
+                          <Button
+                            variant="contained"
+                            className="chose-file-button"
+                            component="span"
+                            onChange={(e) => handleFileChange(e, index)}
+                          >
+                            Choose File
+                          </Button>
+                        </label>
+                        {files[index] && (
+                          <>
+                            <IconButton
+                              color="primary"
+                              sx={{ padding: "0px" }}
+                              onClick={() => handleDeleteFile(index)}
+                            >
+                              <DeleteIcon
+                                sx={{
+                                  fontSize: "1rem",
+                                  color: "#4B4B4B !important",
+                                }}
+                              />
+                            </IconButton>
+                            <IconButton
+                              color="primary"
+                              onClick={() => handleInfo(index)}
+                              sx={{ padding: "0px", marginLeft: "-10px" }}
+                            >
+                              <InfoIcon
+                                sx={{
+                                  fontSize: "1rem",
+                                  color: "#4B4B4B !important",
+                                }}
+                              />
+                            </IconButton>
+                            {filePopupFlag && (
+                              <FilePopup
+                                open={open}
+                                setOpen={setOpen}
+                                url={url}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      {files[index]?.name ? (
+                        <p>{files[index].name}</p>
+                      ) : (
+                        <p>No File Choosen</p>
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableBody>
+            </Table>
+          </>
+        ) : (
+          <Box display="flex" alignItems="center">
+            {files &&
+              files.length > 0 &&
+              files.map((file, fileIndex) => (
+                <div key={fileIndex} style={{ margin: "0 1rem" }}>
+                  {file?.file?.name && (
+                    <>
+                      <img
+                        src={file?.url}
+                        alt="Uploaded"
+                        style={{ width: "100px", height: "100px" }}
+                      />
+
+                      <p>{`${fileIndex + 1}. ${file?.file?.name}`}</p>
+                    </>
+                  )}
+                </div>
+              ))}
+          </Box>
+        )}
+      </div>
+
       <div style={{ margin: "0 auto" }} className="buttonContainer">
         <div
           style={{
@@ -863,13 +1024,27 @@ function NearMissReport() {
           >
             Print
           </Button>
-          <Button
-            variant="contained"
-            onClick={handleUpdate}
-            className="submit-button"
-          >
-            Search
-          </Button>
+        </div>
+      </div>
+      <div className="searchButtonContainer">
+        <div className="searchButtonMissReport">
+          <CustomTextField
+            id="search"
+            type="search"
+            label="Search by DocumentId"
+            variant="outlined"
+            value={searchTerm}
+            onChange={handleUpdate}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon
+                    sx={{ fontSize: "2rem", color: "#4B4B4B !important" }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
         </div>
       </div>
     </div>
