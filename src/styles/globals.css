@@ -400,6 +400,15 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.Mu
   word-wrap: break-word;
 }
 
+
+.global-loader {
+  margin: 0 auto;
+}
+
+.global-loader-colour {
+  color: #dc143c;
+}
+
 @media screen and (max-width: 768px) {
   .align-files {
     display: flex;
