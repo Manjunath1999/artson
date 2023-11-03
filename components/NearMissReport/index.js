@@ -103,6 +103,33 @@ function NearMissReport() {
     setLoaderFlag(true);
     const randomID = generateRandomID();
     setDocumentId(randomID);
+    setTableData([initialRow]);
+    setFilePopupFlag(false);
+    setTime(null);
+    setDob(null);
+    setFiles([])
+    setFormData({
+      project: "",
+      date: "",
+      inductionRecord: "2",
+      noofPersonsInducted: "2",
+      inductiongivenby: "",
+      time: "",
+      signature: "",
+      signatureofhse: "",
+      sitelocation: "",
+      subContractorName: "",
+      incidentDate: "",
+      incidentTime: "",
+      personsInvolved: "",
+      exactLocation: "",
+      typeOfWork: "",
+      describeWhatHappened: "",
+      analysisHappened: "",
+      immediateActionTaken: "",
+      recomendedFutureAction: "",
+      positiveObservation: "",
+    })
     setTimeout(() => {
       setLoaderFlag(false);
     }, 1000);
