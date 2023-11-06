@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Table,
   TableBody,
@@ -23,8 +23,10 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilePopup from "../FilePopup";
 import Visibility from "@mui/icons-material/Visibility";
+import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import GlobalLoader from "../common/GlobalLoader";
+
 
 function NearMissReport() {
   const [isEditing, setIsEditing] = useState(false);
@@ -139,6 +141,39 @@ function NearMissReport() {
     setIsEditing(true);
   };
 
+
+  const pdfRef = useRef();
+
+  const handlePrintPage = () => {
+    const input= pdfRef.current;
+    html2canvas(input).then((canvas)=>{
+      const imgData=canvas.toDataURL('image/png');
+      // const pdf=new jsPDF('p', 'mm','a4',true);
+      const pdf=new jsPDF('p', 'pt', 'letter');
+
+      const pdfWidth=pdf.internal.pageSize.getWidth();
+      const pdfHeight=pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const Ratio= Math.min(pdfWidth/imgWidth,pdfHeight/pdfHeight);
+      const imgX = (pdfWidth - imgWidth * Ratio)/2;
+      const imgY = 0;
+      pdf.addImage(imgData,'PNG', imgX, imgY,imgWidth * Ratio, imgHeight *Ratio);
+      pdf.save('Document.pdf');
+    })
+  };
+
+  // Create a new PDF document
+// const doc = new jsPDF();
+
+// Add content to the PDF
+// doc.text('hello', 10, 10);
+
+// You can add more content here
+
+// Save the PDF to your local machine
+// doc.save('sample.pdf');
+
   const handlePrint = () => {
     const pdf = new jsPDF();
     const htmlContent = `
@@ -151,6 +186,7 @@ function NearMissReport() {
     });
   };
 
+ 
   const handleDeleteFile = (index) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
@@ -184,7 +220,7 @@ function NearMissReport() {
   };
 
   return (
-    <div
+    <div ref={pdfRef}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -1091,7 +1127,7 @@ function NearMissReport() {
           </Button>
           <Button
             variant="contained"
-            onClick={handlePrint}
+            onClick={handlePrintPage}
             className="submit-button"
             disabled={isEditing}
           >

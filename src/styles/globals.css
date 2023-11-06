@@ -184,7 +184,9 @@ svg.MuiSvgIcon-root{
   height: 2.5rem;
   width: 6.5rem;
 }
-
+.searchButton{
+  margin-right: 20px;
+}
 
 
 
