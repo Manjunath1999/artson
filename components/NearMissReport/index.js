@@ -174,18 +174,6 @@ function NearMissReport() {
 // Save the PDF to your local machine
 // doc.save('sample.pdf');
 
-  const handlePrint = () => {
-    const pdf = new jsPDF();
-    const htmlContent = `
-    <h1>Manju</h1>
-      `;
-    pdf.html(htmlContent, {
-      callback: function (pdf) {
-        pdf.save("downloaded.pdf");
-      },
-    });
-  };
-
  
   const handleDeleteFile = (index) => {
     const updatedFiles = [...files];

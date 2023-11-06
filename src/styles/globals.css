@@ -388,11 +388,13 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.Mu
 .align-files {
   display: flex;
   flex-direction: row;
+  padding-top: 1rem;
 }
 
 .add-attachements{
   margin-bottom: 0.9rem;
   padding-bottom: 0.9rem;
+  padding-top: 1rem;
 }
 
 
@@ -414,6 +416,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textInherit.Mu
   .align-files {
     display: flex;
     flex-direction: column;
+    padding-top: 1rem;
   }
   .add-attachements{
     padding-bottom: 0.9rem;

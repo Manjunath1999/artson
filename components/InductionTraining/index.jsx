@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Table,
   TableBody,
@@ -18,6 +18,14 @@ import { TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
+import GlobalLoader from "../common/GlobalLoader";
+import { Box } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilePopup from "../FilePopup";
+import Visibility from "@mui/icons-material/Visibility";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function ViewReport() {
   const [isEditing, setIsEditing] = useState(false);
@@ -41,7 +49,29 @@ function ViewReport() {
     designation: "",
     signature: "",
   };
+  function generateRandomID() {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let id = "AEL/FRM/HSE/";
+    for (let i = 0; i < 2; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      id += characters.charAt(randomIndex);
+    }
+    return id;
+  }
   const [tableData, setTableData] = useState([initialRow]);
+  const [documentId, setDocumentId] = useState(generateRandomID());
+  const [loaderFlag, setLoaderFlag] = useState(true);
+  const [files, setFiles] = useState([null, null, null, null, null]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [filePopupFlag, setFilePopupFlag] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
+  const pdfRef = useRef();
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaderFlag(false);
+    }, 1000);
+  }, []);
 
   const addRow = () => {
     setTableData([...tableData, { ...initialRow }]);
@@ -61,6 +91,98 @@ function ViewReport() {
     setIsEditing(true);
   };
 
+  const handleInfo = (index) => {
+    setOpen(true);
+    setFilePopupFlag(true);
+    setUrl(files[index].url);
+  };
+
+  const handleDeleteFile = (index) => {
+    const updatedFiles = [...files];
+    updatedFiles.splice(index, 1);
+    setFiles(updatedFiles);
+  };
+
+  const handleFileChange = (e, columnIndex) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size <= 1024 * 1024) {
+        const newFiles = [...files];
+        const imageUrl = URL.createObjectURL(file);
+        newFiles[columnIndex] = {
+          file,
+          name: file.name,
+          url: imageUrl,
+        };
+        setFiles(newFiles);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("File size should be less than 1 MB");
+        e.target.value = null;
+      }
+    }
+  };
+
+  const handleDownload = () => {
+    const input = pdfRef.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      // const pdf=new jsPDF('p', 'mm','a4',true);
+      const pdf = new jsPDF("p", "pt", "letter");
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const Ratio = Math.min(pdfWidth / imgWidth, pdfHeight / pdfHeight);
+      const imgX = (pdfWidth - imgWidth * Ratio) / 2;
+      const imgY = 0;
+      pdf.addImage(
+        imgData,
+        "PNG",
+        imgX,
+        imgY,
+        imgWidth * Ratio,
+        imgHeight * Ratio
+      );
+      pdf.save("Document.pdf");
+    });
+  };
+
+  const handleCreateNew = () => {
+    setLoaderFlag(true);
+    const randomID = generateRandomID();
+    setDocumentId(randomID);
+    setTableData([initialRow]);
+    setTime(null);
+    setDob(null);
+    setFormData({
+      project: "",
+      date: "",
+      inductionRecord: "",
+      noofPersonsInducted: "",
+      inductiongivenby: "",
+      time: "",
+      signature: "",
+      signatureofhse: "",
+      sitelocation: "",
+      subContractorName: "",
+      incidentDate: "",
+      incidentTime: "",
+      personsInvolved: "",
+      exactLocation: "",
+      typeOfWork: "",
+      describeWhatHappened: "",
+      analysisHappened: "",
+      immediateActionTaken: "",
+      recomendedFutureAction: "",
+      positiveObservation: "",
+    });
+    setTimeout(() => {
+      setLoaderFlag(false);
+    }, 1000);
+  };
+
   return (
     <div
       style={{
@@ -68,6 +190,7 @@ function ViewReport() {
         flexDirection: "column",
         justifyContent: "center",
       }}
+      ref={pdfRef}
     >
       <Typography
         variant="h5"
@@ -76,7 +199,10 @@ function ViewReport() {
       >
         INDUCTION TRAINING
       </Typography>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {loaderFlag ? (
+        <GlobalLoader />
+      ) : (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
         <TableContainer component={Paper}>
           <Table style={{ borderCollapse: "collapse" }}>
             <TableHead>
@@ -671,6 +797,126 @@ function ViewReport() {
           </Table>
         </TableContainer>
       </LocalizationProvider>
+      )}
+      <div style={{ margin: "0 auto" }} className="documentContainer">
+        {isEditing ? (
+          <>
+            <Typography variant="body1" className="add-attachements">
+              Add Attachments
+            </Typography>
+            <Table>
+              <TableBody>
+                {errorMessage && (
+                  <Typography variant="body2" color="error">
+                    {errorMessage}
+                  </Typography>
+                )}
+                <TableRow>
+                  <div className="align-files">
+                    {[0, 1, 2, 3, 4].map((index) => (
+                      <TableCell
+                        key={index}
+                        sx={{ padding: "0px", border: "none" }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "12rem",
+                          }}
+                        >
+                          <input
+                            type="file"
+                            accept=".jpg, .png"
+                            style={{
+                              borderRadius: "2px",
+                              width: "200px",
+                              display: "none",
+                            }}
+                            onChange={(e) => handleFileChange(e, index)}
+                            id={`file-input-${index}`}
+                          />
+                          <label htmlFor={`file-input-${index}`}>
+                            <Button
+                              variant="contained"
+                              className="chose-file-button"
+                              component="span"
+                              onChange={(e) => handleFileChange(e, index)}
+                            >
+                              Choose File
+                            </Button>
+                          </label>
+                          {files[index] && (
+                            <>
+                              <IconButton
+                                color="primary"
+                                sx={{ padding: "0px" }}
+                                onClick={() => handleDeleteFile(index)}
+                              >
+                                <DeleteIcon
+                                  sx={{
+                                    fontSize: "1rem",
+                                    color: "#4B4B4B !important",
+                                  }}
+                                />
+                              </IconButton>
+                              <IconButton
+                                color="primary"
+                                onClick={() => handleInfo(index)}
+                                sx={{ padding: "0px", marginLeft: "-10px" }}
+                              >
+                                <Visibility
+                                  sx={{
+                                    fontSize: "1rem",
+                                    color: "#4B4B4B !important",
+                                  }}
+                                />
+                              </IconButton>
+                              {filePopupFlag && (
+                                <FilePopup
+                                  open={open}
+                                  setOpen={setOpen}
+                                  url={url}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        {files[index]?.name ? (
+                          <p className="file-name">{files[index].name}</p>
+                        ) : (
+                          <p>No File Choosen</p>
+                        )}
+                      </TableCell>
+                    ))}
+                  </div>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </>
+        ) : (
+          <Box display="flex" className="align-files">
+            {files &&
+              files.length > 0 &&
+              files.map((file, fileIndex) => (
+                <div key={fileIndex} style={{ margin: "0 1rem" }}>
+                  {file?.file?.name && (
+                    <>
+                      <img
+                        src={file?.url}
+                        alt="Uploaded"
+                        style={{ width: "100px", height: "100px" }}
+                      />
+                      <p className="file-name">{`${fileIndex + 1}. ${
+                        file?.file?.name
+                      }`}</p>
+                    </>
+                  )}
+                </div>
+              ))}
+          </Box>
+        )}
+      </div>
       <div style={{ margin: "0 auto" }} className="buttonContainer">
         <div
           style={{
@@ -683,7 +929,7 @@ function ViewReport() {
         >
           <Button
             variant="contained"
-            onClick={handleSave}
+            onClick={handleCreateNew}
             className="submit-button"
           >
             Create New
@@ -705,7 +951,7 @@ function ViewReport() {
           </Button>
           <Button
             variant="contained"
-            onClick={handleUpdate}
+            onClick={handleDownload}
             className="submit-button"
             disabled={isEditing}
           >
