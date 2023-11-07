@@ -1038,7 +1038,7 @@ function NearMissReport() {
                   </Typography>
                 )}
                 <TableRow>
-                  <div className="align-files-edit">
+                  <div className="align-files">
                     {[0, 1, 2, 3, 4].map((index) => (
                       <TableCell
                         key={index}
