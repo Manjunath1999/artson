@@ -144,24 +144,97 @@ function NearMissReport() {
 
   const pdfRef = useRef();
 
-  const handlePrintPage = () => {
-    const input= pdfRef.current;
-    html2canvas(input).then((canvas)=>{
-      const imgData=canvas.toDataURL('image/png');
-      // const pdf=new jsPDF('p', 'mm','a4',true);
-      const pdf=new jsPDF('p', 'pt', 'letter');
+  // const handlePrintPage = () => {
+  //   const input= pdfRef.current;
+  //   html2canvas(input).then((canvas)=>{
+  //     const imgData=canvas.toDataURL('image/png');
+  //     // const pdf=new jsPDF('p', 'mm','a4',true);
+  //     const pdf=new jsPDF('p', 'pt', 'letter');
 
-      const pdfWidth=pdf.internal.pageSize.getWidth();
-      const pdfHeight=pdf.internal.pageSize.getHeight();
+  //     const pdfWidth=pdf.internal.pageSize.getWidth();
+  //     const pdfHeight=pdf.internal.pageSize.getHeight();
+  //     const imgWidth = canvas.width;
+  //     const imgHeight = canvas.height;
+  //     const Ratio= Math.min(pdfWidth/imgWidth,pdfHeight/pdfHeight);
+  //     const imgX = (pdfWidth - imgWidth * Ratio)/2;
+  //     const imgY = 0;
+  //     pdf.addImage(imgData,'PNG', imgX, imgY,imgWidth * Ratio, imgHeight *Ratio);
+  //     pdf.save('Document.pdf');
+  //   })
+  // };
+
+  useEffect(() => {
+    // Ensure that the capture process starts after the entire page has loaded
+    window.onload = handlePrintPage;
+  }, []);
+  
+  const handlePrintPage = () => {
+    const input = pdfRef.current;
+    const pdf = new jsPDF('p', 'mm', 'a4', true);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+  
+    const hideElements = () => {
+      // Hide the buttons and search button by setting their style to display: none
+      const buttonsToHide = document.querySelectorAll(".submit-button"); // Change this selector
+      buttonsToHide.forEach((button) => {
+        button.style.display = "none";
+      });
+    };
+  
+    const showElements = () => {
+      // Show the previously hidden buttons
+      const buttonsToHide = document.querySelectorAll(".submit-button"); // Change this selector
+      buttonsToHide.forEach((button) => {
+        button.style.display = "block";
+      });
+    };
+  
+    const addPage = (canvas) => {
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
-      const Ratio= Math.min(pdfWidth/imgWidth,pdfHeight/pdfHeight);
-      const imgX = (pdfWidth - imgWidth * Ratio)/2;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 0;
-      pdf.addImage(imgData,'PNG', imgX, imgY,imgWidth * Ratio, imgHeight *Ratio);
-      pdf.save('Document.pdf');
-    })
+    
+      const img = new Image();
+      img.src = canvas.toDataURL('image/png');
+      img.onload = () => {
+        pdf.addImage(img, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      };
+    };
+    
+  
+    const generatePDF = (pageElement, pageIndex) => {
+      if (pageIndex > 0) {
+        // If not the first page, add a new page before capturing the content
+        pdf.addPage();
+      }
+  
+      hideElements(); // Hide the elements before capturing the page
+  
+      html2canvas(pageElement, {
+        backgroundColor: "white",
+        scale: 2,
+      }).then((canvas) => {
+        addPage(canvas);
+        if (pageIndex < input.children.length - 1) {
+          generatePDF(input.children[pageIndex + 1], pageIndex + 1);
+        } else {
+          showElements(); // Show the elements after generating the PDF
+          pdf.save('Document.pdf');
+        }
+      });
+    };
+  
+    if (input.children.length > 0) {
+      generatePDF(input.children[0], 0);
+    }
   };
+  
+
+
+
 
   // Create a new PDF document
 // const doc = new jsPDF();
