@@ -167,6 +167,25 @@ function NearMissReport() {
     // Ensure that the capture process starts after the entire page has loaded
     window.onload = handlePrintPage;
   }, []);
+
+
+  function removeSectionsByClassName(className) {
+    const input = pdfRef.current;
+    const sections = input.getElementsByClassName(className);
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
+      section.remove();
+    }
+  }
+
+  function addSectionsByClassName(className) {
+    const input = pdfRef.current;
+    const sections = input.getElementsByClassName(className);
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
+      section.push();
+    }
+  }
   
   const handlePrintPage = () => {
     const input = pdfRef.current;
@@ -174,21 +193,10 @@ function NearMissReport() {
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
   
-    const hideElements = () => {
-      // Hide the buttons and search button by setting their style to display: none
-      const buttonsToHide = document.querySelectorAll(".submit-button"); // Change this selector
-      buttonsToHide.forEach((button) => {
-        button.style.display = "none";
-      });
-    };
-  
-    const showElements = () => {
-      // Show the previously hidden buttons
-      const buttonsToHide = document.querySelectorAll(".submit-button"); // Change this selector
-      buttonsToHide.forEach((button) => {
-        button.style.display = "block";
-      });
-    };
+
+    removeSectionsByClassName("report-name");
+    removeSectionsByClassName("buttonContainer");
+    removeSectionsByClassName("searchButtonContainer");
   
     const addPage = (canvas) => {
       const imgWidth = canvas.width;
@@ -211,43 +219,30 @@ function NearMissReport() {
         pdf.addPage();
       }
   
-      hideElements(); // Hide the elements before capturing the page
-  
       html2canvas(pageElement, {
         backgroundColor: "white",
         scale: 2,
       }).then((canvas) => {
+        if (pageIndex === 0) {
+            pdf.deletePage(1);
+          }
         addPage(canvas);
         if (pageIndex < input.children.length - 1) {
           generatePDF(input.children[pageIndex + 1], pageIndex + 1);
         } else {
-          showElements(); // Show the elements after generating the PDF
           pdf.save('Document.pdf');
+          addSectionsByClassName("report-name")
+          addSectionsByClassName("buttonContainer")
+          addSectionsByClassName("searchButtonContainer")
         }
       });
     };
-  
+  debugger;
     if (input.children.length > 0) {
       generatePDF(input.children[0], 0);
     }
   };
-  
 
-
-
-
-  // Create a new PDF document
-// const doc = new jsPDF();
-
-// Add content to the PDF
-// doc.text('hello', 10, 10);
-
-// You can add more content here
-
-// Save the PDF to your local machine
-// doc.save('sample.pdf');
-
- 
   const handleDeleteFile = (index) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
@@ -292,12 +287,7 @@ function NearMissReport() {
       <Typography
         variant="h5"
         align="center"
-        style={{
-          margin: "0 auto",
-          marginBottom: "2rem",
-          marginTop: "1rem",
-          fontSize: "1.8rem",
-        }}
+        className="report-name"
       >
         NEAR MISS REPORT
       </Typography>
@@ -1048,7 +1038,7 @@ function NearMissReport() {
                   </Typography>
                 )}
                 <TableRow>
-                  <div className="align-files">
+                  <div className="align-files-edit">
                     {[0, 1, 2, 3, 4].map((index) => (
                       <TableCell
                         key={index}
